@@ -1,33 +1,38 @@
 #!/usr/bin/python
 from __future__ import print_function
-import sys
+import sys, random
 if sys.version_info[0] < 3:
     input = raw_input
 
-# Initialize Game State
-# False = Computer, True = User
-state = {}
-rows = 'a','b','c'
-columns = '0','1','2'
+rows = {'a':0, 'b':1, 'c':2}
 
 def reset():
-    for x in rows:
-        state[x] = {}
-        for y in columns:
-            state[x][y] = None
+    global state
+    state = []
+    for _ in range(3):
+        state.append([None] * 3)
 
 def automove():
+    movelist = []
+    for i in range(3):
+        for j in range(3):
+            movelist.append((i,j))
+    random.shuffle(movelist)
+
     moved = False
-    for key in state:
-        for subkey in state[key]:
-            if not moved and state[key][subkey] is None:
-                state[key][subkey] = 'o'
-                print('The computer moved to ' + key + subkey)
-                moved = True
+    for i, j in movelist:
+        if not moved and state[i][j] is None:
+            state[i][j] = 'o'
+            print('The computer moved to ' + 'abc'[i] + str(j))
+            moved = True
 
 def move(move):
-    if state[move[0]][move[1]] is None:
-        state[move[0]][move[1]] = 'x'
+    if move == 'p':
+        return
+    row = rows[move[0]]
+    col = int(move[1])
+    if state[row][col] is None:
+        state[row][col] = 'x'
     else:
         raise ValueError('Space has already been played')
 
@@ -37,34 +42,26 @@ def winner():
     """
     # Horizontal
     for row in state:
-        a,b,c = columns
-        if state[row][a] is state[row][b] is state[row][c] is not None:
-            return state[row][a]
+        if row[0] is row[1] is row[2] is not None:
+            return row[0]
 
     # Vertical
-    for col in columns:
-        a,b,c = rows
-        if state[a][col] is state[b][col] is state[c][col] is not None:
-            return state[a][col]
+    for col in range(3):
+        if state[0][col] is state[1][col] is state[2][col] is not None:
+            return state[0][col]
 
     # Natural Diagonal, then Reverse Diagonal
-    r = rows
-    c = columns
-    if state[r[0]][c[0]] is state[r[1]][c[1]] is state[r[2]][c[2]] is not None:
-        return state[r[0]][c[0]]
-    if state[r[0]][c[2]] is state[r[1]][c[1]] is state[r[2]][c[0]] is not None:
-        return state[r[0]][c[2]]
+    if (state[0][0] is state[1][1] is state[2][2] is not None or
+        state[0][2] is state[1][1] is state[2][0] is not None):
+        return state[1][1]
 
 def out_state():
-    print('\n    {0}   {1}   {2}\n  +-----------+'.format(state['a'].keys()[0],
-                                                          state['a'].keys()[1],
-                                                          state['a'].keys()[2]))
-    for row in state:
-        if row is not state.keys()[0]:
+    print('\n    0   1   2\n  +-----------+')
+    for i, row in enumerate(state):
+        if i is not 0:
             print('  +---+---+---+')
-        to_print = [row + ' ']
-        for space in state[row]:
-            space = state[row][space]
+        to_print = ['abc'[i] + ' ']
+        for space in row:
             if space:
                 to_print.append(' {0} '.format(space))
             else:
@@ -76,8 +73,8 @@ def out_state():
 def full():
     ret = True
     for row in state:
-        for col in state[row]:
-            if not state[row][col]:
+        for space in row:
+            if not space:
                 ret = False
     return ret
 
@@ -96,6 +93,6 @@ while cont is True:
         print('You Have Lost :-(')
     else:
         print('Cats Game :-|')
-    if input('Play Again? (Y/n) ') is 'n':
+    if input('Play Again? (Y/n) ') == 'n': # Why won't is work here in python3?
         cont = False
 
