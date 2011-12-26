@@ -22,12 +22,11 @@ def automove():
             movelist.append((i,j))
     random.shuffle(movelist)
 
-    moved = False
     for i, j in movelist:
         if not moved and state[i][j] is None:
             state[i][j] = 'o'
             print('The computer moved to ' + 'abc'[i] + str(j))
-            moved = True
+            return
 
 def move(move):
     if move == 'p':
@@ -74,15 +73,13 @@ def out_state():
     print('  +-----------+\n')
 
 def full():
-    ret = True
     for row in state:
         for space in row:
             if not space:
-                ret = False
-    return ret
+                return False
+    return True
 
-cont = True
-while cont is True:
+while True:
     reset()
     while not winner() and not full():
         out_state()
@@ -106,8 +103,8 @@ while cont is True:
     else:
         print('Cats Game :-|')
     try:
-        if input('Play Again? (Y/n) ') == 'n':
-        cont = False
+        if input('Play Again? (Y/n) ')[0] in 'nN':
+            break
     except (EOFError, KeyboardInterrupt):
         break
 
