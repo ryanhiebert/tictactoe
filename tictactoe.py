@@ -6,6 +6,9 @@ if raw_input:
 
 rows = {'a':0, 'b':1, 'c':2}
 
+class SpaceTakenError(Exception):
+    """Indicates that a space is already played."""
+
 def reset():
     global state
     state = []
@@ -34,7 +37,7 @@ def move(move):
     if state[row][col] is None:
         state[row][col] = 'x'
     else:
-        raise ValueError('Space has already been played')
+        raise SpaceTakenError('Space has already been played.')
 
 def winner():
     """
