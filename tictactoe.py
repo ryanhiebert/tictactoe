@@ -94,6 +94,8 @@ while cont is True:
                 print('Invalid Move.  Move should be like a0.')
             except SpaceTakenError:
                 print('That space has already been played.')
+            except (EOFError, KeyboardInterrupt):
+                raise SystemExit
         if not winner():
             automove()
     out_state()
@@ -103,6 +105,9 @@ while cont is True:
         print('You Have Lost :-(')
     else:
         print('Cats Game :-|')
-    if input('Play Again? (Y/n) ') == 'n': # Why won't is work here in python3?
+    try:
+        if input('Play Again? (Y/n) ') == 'n':
         cont = False
+    except (EOFError, KeyboardInterrupt):
+        break
 
