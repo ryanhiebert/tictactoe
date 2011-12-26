@@ -86,7 +86,14 @@ while cont is True:
     reset()
     while not winner() and not full():
         out_state()
-        move(input('Enter Your Move: '))
+        while True:
+            try:
+                move(input('Enter Your Move: '))
+                break
+            except (IndexError, KeyError, ValueError):
+                print('Invalid Move.  Move should be like a0.')
+            except SpaceTakenError:
+                print('That space has already been played.')
         if not winner():
             automove()
     out_state()
