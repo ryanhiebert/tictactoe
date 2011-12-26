@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from __future__ import print_function
-import sys, random
-if sys.version_info[0] < 3:
+import random
+if raw_input:
     input = raw_input
 
 rows = {'a':0, 'b':1, 'c':2}
