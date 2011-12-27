@@ -23,7 +23,7 @@ def automove():
     random.shuffle(movelist)
 
     for i, j in movelist:
-        if not moved and state[i][j] is None:
+        if state[i][j] is None:
             state[i][j] = 'o'
             print('The computer moved to ' + 'abc'[i] + str(j))
             return
