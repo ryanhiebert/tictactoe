@@ -15,13 +15,40 @@ def reset():
     for _ in range(3):
         state.append([None] * 3)
 
-def automove():
+def vectors():
+    vectors = []
+    for i in range(3):
+        vectors.append(tuple([(i,j) for j in range(3)]))
+        vectors.append(tuple([(j,i) for j in range(3)]))
+    vectors.append(((0,0),(1,1),(2,2)))
+    vectors.append(((0,2),(1,1),(2,0)))
+    return vectors
+
+def automove(level=1):
+    """A multi-difficulty AI"""
+    # 0 - a0, a1, ..., c2
+    # 1 - random
+    # 2 - blocks + random
+    # 3 - fills + blocks + random
     movelist = []
     for i in range(3):
         for j in range(3):
             movelist.append((i,j))
-    random.shuffle(movelist)
-
+    if level > 0:
+        random.shuffle(movelist)
+    if level >= 3:
+        for vector in vectors():
+            fills = [state[i][j] for i, j in vector]
+            print(fills)
+            print(fills.count('o'))
+            print(fills.count(None))
+            if fills.count('o') == 2 and fills.count(None) == 1:
+                movelist = list(vector)
+    if level >= 2:
+        for vector in vectors():
+            fills = [state[i][j] for i, j in vector]
+            if fills.count('x') == 2 and fills.count(None) == 1:
+                movelist = list(vector)
     for i, j in movelist:
         if state[i][j] is None:
             state[i][j] = 'o'
@@ -80,6 +107,15 @@ def full():
     return True
 
 while True:
+    try:
+        difficulty = int(input('Difficulty: (0-3) '))
+        break
+    except ValueError:
+        print('Invalid Difficulty.')
+    except (EOFError, KeyboardInterrupt):
+        raise SystemExit
+
+while True:
     reset()
     while not winner() and not full():
         out_state()
@@ -94,7 +130,7 @@ while True:
             except (EOFError, KeyboardInterrupt):
                 raise SystemExit
         if not winner():
-            automove()
+            automove(difficulty)
     out_state()
     if winner() is 'x':
         print('You Have Won :-)')
