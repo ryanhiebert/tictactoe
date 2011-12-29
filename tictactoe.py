@@ -139,7 +139,7 @@ while True:
     else:
         print('Cats Game :-|')
     try:
-        if input('Play Again? (Y/n) ')[0] in 'nN':
+        if input('Play Again? (Y/n) ') in 'nN':
             break
     except (EOFError, KeyboardInterrupt):
         break
