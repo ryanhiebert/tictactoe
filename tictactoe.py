@@ -39,7 +39,6 @@ def automove(level=1):
     if level >= 3:
         for vector in vectors():
             fills = [state[i][j] for i, j in vector]
-            print(fills)
             if fills.count('o') == 2 and fills.count(None) == 1:
                 movelist = random.shuffle(list(vector))
     if level >= 2:
