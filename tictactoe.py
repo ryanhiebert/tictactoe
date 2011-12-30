@@ -40,15 +40,13 @@ def automove(level=1):
         for vector in vectors():
             fills = [state[i][j] for i, j in vector]
             print(fills)
-            print(fills.count('o'))
-            print(fills.count(None))
             if fills.count('o') == 2 and fills.count(None) == 1:
-                movelist = list(vector)
+                movelist = random.shuffle(list(vector))
     if level >= 2:
         for vector in vectors():
             fills = [state[i][j] for i, j in vector]
             if fills.count('x') == 2 and fills.count(None) == 1:
-                movelist = list(vector)
+                movelist = random.shuffle(list(vector))
     for i, j in movelist:
         if state[i][j] is None:
             state[i][j] = 'o'
