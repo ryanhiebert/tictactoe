@@ -141,7 +141,7 @@ while True:
     else:
         print('Cats Game :-|')
     try:
-        if input('Play Again? (Y/n) ') in 'nN':
+        if input('Play Again? (Y/n) ') in tuple('nN'):
             break
     except (EOFError, KeyboardInterrupt):
         break
