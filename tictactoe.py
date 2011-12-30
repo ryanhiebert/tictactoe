@@ -39,16 +39,18 @@ def automove(level=1):
             movelist.append((i,j))
     if level > 0:
         random.shuffle(movelist)
+    vects = list(vectors())
+    random.shuffle(vects)
     if level >= 3:
-        for vector in vectors():
+        for vector in vects:
             fills = [state[i][j] for i, j in vector]
             if fills.count('o') == 2 and fills.count(None) == 1:
-                movelist = random.shuffle(list(vector))
+                movelist = list(vector)
     if level >= 2:
-        for vector in vectors():
+        for vector in vects:
             fills = [state[i][j] for i, j in vector]
             if fills.count('x') == 2 and fills.count(None) == 1:
-                movelist = random.shuffle(list(vector))
+                movelist = list(vector)
     for i, j in movelist:
         if state[i][j] is None:
             state[i][j] = 'o'
