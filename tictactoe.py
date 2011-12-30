@@ -3,8 +3,7 @@ from __future__ import print_function
 import random
 
 try:
-    if raw_input:
-        input = raw_input
+    input = raw_input
 except NameError:
     pass
 
