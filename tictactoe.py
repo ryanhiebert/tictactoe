@@ -64,9 +64,7 @@ def move(move):
         raise SpaceTakenError('Space has already been played.')
 
 def winner():
-    """
-    Check for winning states, and return winner, or if no winner, None.
-    """
+    """Check for winning states, and return winner or None"""
     # Horizontal
     for row in state:
         if row[0] is row[1] is row[2] is not None:
@@ -107,6 +105,8 @@ def full():
 while True:
     try:
         difficulty = int(input('Difficulty: (0-3) '))
+        if difficulty not in range(4):
+            raise ValueError
         break
     except ValueError:
         print('Invalid Difficulty.')
