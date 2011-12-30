@@ -1,8 +1,12 @@
 #!/usr/bin/python
 from __future__ import print_function
 import random
-if raw_input:
-    input = raw_input
+
+try:
+    if raw_input:
+        input = raw_input
+except NameError:
+    pass
 
 rows = {'a':0, 'b':1, 'c':2}
 
