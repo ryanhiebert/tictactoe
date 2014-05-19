@@ -1,5 +1,6 @@
+from tictactoe import Board
+
 def test_board_init():
-    from tictactoe import Board 
     state = (
         (None, None, None),
         (None, None, None),
@@ -9,7 +10,6 @@ def test_board_init():
     assert board.state == state
 
 def test_default_init():
-    from tictactoe import Board
     state = (
         (None, None, None),
         (None, None, None),
