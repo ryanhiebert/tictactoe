@@ -21,3 +21,8 @@ def test_default_init():
 def test_player_turn():
     board = Board()
     assert board.turn() == 'x'
+
+def test_play_square():
+    board = Board()
+    board = board.move('b0')
+    assert board.state[1][0] == 'x'
