@@ -17,3 +17,7 @@ def test_default_init():
     )
     board = Board()
     assert board.state == state
+
+def test_player_turn():
+    board = Board()
+    assert board.turn() == 'x'
