@@ -2,7 +2,7 @@ class Board:
     def __init__(self, state=None):
         if state is None:
             state = ((None,) * 3,) * 3
-        self.state = state
+        self.state = tuple(tuple(row) for row in state)
 
     def turn(self):
         x = o = 0
@@ -27,7 +27,5 @@ class Board:
         col = '012'.index(move[1])
 
         state[row][col] = turn
-
-        state = tuple(tuple(row) for row in state)
 
         return Board(state)
