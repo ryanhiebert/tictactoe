@@ -17,3 +17,17 @@ class Board:
             return 'x'
         else:
             return 'o'
+
+    def move(self, move):
+        state = [list(row) for row in self.state]
+
+        turn = self.turn()
+
+        row = 'abc'.index(move[0])
+        col = '012'.index(move[1])
+
+        state[row][col] = turn
+
+        state = tuple(tuple(row) for row in state)
+
+        return Board(state)
